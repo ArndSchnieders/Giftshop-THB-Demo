@@ -12,16 +12,19 @@ const guestbook = {
     });
   },
   // add a single guestbood entry
-  add(name, email, comment) {
-    console.log('Sending', name, email, comment)
+  add(name, street, zipcode, city, email, phone) {
+    console.log('Sending', name, street, zipcode, city, email, phone)
     return $.ajax({
       type: 'PUT',
       url: `${apiUrl}/entries`,
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify({
         name,
+        street,
+        zipcode,
+        city,
         email,
-        comment,
+        phone,
       }),
       dataType: 'json',
     });
@@ -62,8 +65,11 @@ const guestbook = {
 
     guestbook.add(
       $('#name').val().trim(),
+      $('#street').val().trim(),
+      $('#zipcode').val().trim(),
+      $('#city').val().trim(),
       $('#email').val().trim(),
-      $('#comment').val().trim()
+      $('#phone').val().trim()
     ).done(function(result) {
       // reload entries
       loadEntries();
